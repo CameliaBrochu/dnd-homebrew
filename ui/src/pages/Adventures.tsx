@@ -1,6 +1,6 @@
 import MainLayout from "../layouts/MainLayout";
 
-const Adventures:React.FC = () => {
+const Adventures = () => {
 
   return (
     <MainLayout>

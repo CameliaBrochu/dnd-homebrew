@@ -1,6 +1,6 @@
 import MainLayout from "../layouts/MainLayout";
 
-const Items:React.FC = () => {
+const Items = () => {
 
   return (
     <MainLayout>

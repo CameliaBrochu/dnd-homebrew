@@ -1,4 +1,3 @@
-import React from "react";
 import {
     createBrowserRouter,
     RouterProvider,
@@ -32,7 +31,7 @@ const router = createBrowserRouter([
   ]);
 
 
-const AppRouter:React.FC = () => {
+const AppRouter = () => {
   return (
     <RouterProvider router={router} />
   );

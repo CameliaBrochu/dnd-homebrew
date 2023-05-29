@@ -1,6 +1,6 @@
 import MainLayout from "../layouts/MainLayout";
 
-const Monsters:React.FC = () => {
+const Monsters = () => {
 
   return (
     <MainLayout>
