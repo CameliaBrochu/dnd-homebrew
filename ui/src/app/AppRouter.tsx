@@ -8,7 +8,8 @@ import Root from "../pages/Home";
 import ErrorPage from '../pages/ErrorPage';
 import Adventures from '../pages/Adventures';
 import Monsters from '../pages/Monsters';
-import Items from '../pages/Items';
+import Items from '@/pages/items/Items';
+import NewItem from "@/pages/items/NewItem";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
     },
     {
       path: "/items",
-      element: <Items />,
+      element: <Items />
+    },
+    {
+      path: "/items/new",
+      element: <NewItem />
     }
   ]);
 
