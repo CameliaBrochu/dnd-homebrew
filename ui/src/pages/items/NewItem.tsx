@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
-import { Button } from "@mui/material";
+import { Button, Grid, FormControl } from "@mui/material";
 import MainLayout from "@/layouts/MainLayout";
 import TextField from "@/components/formInputs/TextField";
 import Select from "@/components/formInputs/Select";
 
-enum ItemType  {
+enum ItemType {
     ARMOR = "Armor", 
     POTION = "Potion", 
     RING = "Ring", 
@@ -16,7 +16,17 @@ enum ItemType  {
     WONDROUS = "Wonderous Item",
     NONE = ""
 }
-type ItemRarity = "COMMON" | "UNCOMMON" | "RARE" | "VERY RARE" | "LEGENDARY" | "ARTEFACT" | "VARIES"
+
+enum ItemRarity {
+    COMMON = "Common",
+    UNCOMMON = "Uncommon",
+    RARE = "Rare",
+    VERYRARE = "Very rare",
+    LEGENDARY = "Legendary",
+    ARTEFACT = "Artefact",
+    VARIES = "Varies",
+    NONE = ""
+}
 
 interface NewItemFormData {
     name: string
@@ -29,34 +39,60 @@ interface NewItemFormData {
 }
 
 
+const typeOptions = (Object.keys(ItemType) as Array<keyof typeof ItemType>).map((key) => {
+    return {
+        value: key, 
+        label: ItemType[key]
+    }
+})
+
+const rarityOptions = (Object.keys(ItemRarity) as Array<keyof typeof ItemRarity>).map((key) => {
+    return {
+        value: key, 
+        label: ItemRarity[key]
+    }
+})
+
 function NewItem() {
     const { handleSubmit, control } = useForm<NewItemFormData>({
         defaultValues: {
             name: "",
             type: ItemType.NONE,
-            rarity: undefined,
-            attunement: undefined,
+            rarity: ItemRarity.NONE,
+            attunement: false,
             tags: [],
             charges: null,
             description: ""
         }
     });
 
-    const options = (Object.keys(ItemType) as Array<keyof typeof ItemType>).map((key) => {
-        return {
-            value: key, 
-            label: ItemType[key]
-        }
-    })
-
     const saveNewItem = (data: NewItemFormData) => console.log(data)
 
     return (
         <MainLayout>
             <form>
-                <TextField name={"name"} control={control} label={"Item name"} />
-                <Select name={"type"} control={control} label={"Item type"} options={options} value={ItemType.NONE} />
-                <Button onClick={handleSubmit(saveNewItem)}>Submit</Button>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <FormControl fullWidth>
+                            <TextField name={"name"} control={control} label={"Item name"} />
+                        </FormControl>
+                    </Grid>
+                    
+                    <Grid item xs={12} sm={6}>
+                        <FormControl fullWidth>
+                            <Select name={"type"} control={control} label={"Item type"} options={typeOptions} value={ItemType.NONE} />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <FormControl fullWidth>
+                            <Select name={"rarity"} control={control} label={"Item rarity"} options={rarityOptions} value={ItemRarity.NONE} />
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button onClick={handleSubmit(saveNewItem)}>Submit</Button>
+                    </Grid>
+                </Grid>
             </form>
         </MainLayout>
     )
