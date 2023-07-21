@@ -3,6 +3,8 @@ import { Button, Grid, FormControl } from "@mui/material";
 import MainLayout from "@/layouts/MainLayout";
 import TextField from "@/components/formInputs/TextField";
 import Select from "@/components/formInputs/Select";
+import Checkbox from "@/components/formInputs/Checkbox";
+import TextArea from "@/components/formInputs/TextArea";
 
 enum ItemType {
     ARMOR = "Armor", 
@@ -86,6 +88,17 @@ function NewItem() {
                     <Grid item xs={12} sm={6}>
                         <FormControl fullWidth>
                             <Select name={"rarity"} control={control} label={"Item rarity"} options={rarityOptions} value={ItemRarity.NONE} />
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                        <Checkbox name={"attunement"} control={control} label={"Attunement"} />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        
+                        <FormControl fullWidth>
+                            <TextArea name={"description"} control={control} label={"Description"} rows={4} />
                         </FormControl>
                     </Grid>
 
