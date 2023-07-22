@@ -1,9 +1,9 @@
-import { Controller } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 import { TextField as MuiTextField } from "@mui/material";
 
 type Props = {
     name: string
-    control: any
+    control: Control<any,any>
     label: string
 }
 

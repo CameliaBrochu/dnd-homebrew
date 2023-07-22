@@ -5,30 +5,7 @@ import TextField from "@/components/formInputs/TextField";
 import Select from "@/components/formInputs/Select";
 import Checkbox from "@/components/formInputs/Checkbox";
 import TextArea from "@/components/formInputs/TextArea";
-
-enum ItemType {
-    ARMOR = "Armor", 
-    POTION = "Potion", 
-    RING = "Ring", 
-    ROD = "Rod", 
-    SCROLL = "Scroll", 
-    STAFF = "Staff", 
-    WAND = "Wand", 
-    WEAPON = "Weapon", 
-    WONDROUS = "Wonderous Item",
-    NONE = ""
-}
-
-enum ItemRarity {
-    COMMON = "Common",
-    UNCOMMON = "Uncommon",
-    RARE = "Rare",
-    VERYRARE = "Very rare",
-    LEGENDARY = "Legendary",
-    ARTEFACT = "Artefact",
-    VARIES = "Varies",
-    NONE = ""
-}
+import { ItemRarity, ItemType } from "@/custom-types";
 
 interface NewItemFormData {
     name: string
@@ -72,6 +49,7 @@ function NewItem() {
 
     return (
         <MainLayout>
+            <h1>New Item</h1>
             <form>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -103,7 +81,7 @@ function NewItem() {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Button onClick={handleSubmit(saveNewItem)}>Submit</Button>
+                        <Button onClick={handleSubmit(saveNewItem)} variant="contained">Submit</Button>
                     </Grid>
                 </Grid>
             </form>
