@@ -1,8 +1,12 @@
 import MainLayout from "@/layouts/MainLayout";
-import { DataGrid, GridEventListener, GridColDef } from '@mui/x-data-grid';
+import { useForm } from "react-hook-form";
+import { DataGrid, GridEventListener, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { ItemRarity, ItemType, ObjectId } from "@/custom-types";
 import { useNavigate } from "react-router-dom";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, FormControl } from "@mui/material";
+import TextField from "@/components/formInputs/TextField";
+import Select from "@/components/formInputs/Select";
+import Checkbox from "@/components/formInputs/Checkbox";
 import { Link } from "react-router-dom";
 
 interface ItemListing {
@@ -14,13 +18,28 @@ interface ItemListing {
   tags: String[]
 }
 
+interface FilterFormData {
+  name: string
+  type: ItemType
+  rarity: ItemRarity
+  attunement: Boolean
+}
+
 
 const Items = () => {
   const navigate = useNavigate()
+  const {handleSubmit, control} = useForm<FilterFormData>({
+    defaultValues: {
+        name: "",
+        type: ItemType.NONE,
+        rarity: ItemRarity.NONE,
+        attunement: false
+    }
+  })
 
   const itemListing: ItemListing[] = [
     {
-      id: "1",
+      id: "5",
       name: "Item 1",
       type: ItemType.WEAPON,
       rarity: ItemRarity.UNCOMMON,
@@ -29,7 +48,7 @@ const Items = () => {
     },
     {
       
-      id: "2",
+      id: "7",
       name: "Item 2",
       type: ItemType.POTION,
       rarity: ItemRarity.UNCOMMON,
@@ -45,10 +64,26 @@ const Items = () => {
     { field: "attunement", headerName: "Attunement", width: 250 },
     { field: "tags", headerName: "", width: 250 },
   ];
+
+  const typeOptions = (Object.keys(ItemType) as Array<keyof typeof ItemType>).map((key) => {
+    return {
+        value: key, 
+        label: ItemType[key]
+    }
+})
+
+const rarityOptions = (Object.keys(ItemRarity) as Array<keyof typeof ItemRarity>).map((key) => {
+    return {
+        value: key, 
+        label: ItemRarity[key]
+    }
+})
   
-  const onRowClick: GridEventListener<"rowClick"> = (rowData) => {
+  const onRowClick: GridEventListener<"rowClick"> = (rowData: GridRowParams<ItemListing>) => {
     navigate(`/items/${rowData.id}`)
   }
+
+  const submitFilter = (data: FilterFormData) => console.log(data)
 
   return (
     <MainLayout>
@@ -59,6 +94,37 @@ const Items = () => {
           <Link to={"new"}>
             <Button variant="contained">Add New</Button>
           </Link>
+        </Grid>
+
+        <Grid item xs={12}>
+            <form>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={3}>
+                        <FormControl fullWidth>
+                            <TextField name={"name"} control={control} label={"Item name"} />
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} sm={3}>
+                        <FormControl fullWidth>
+                            <Select name={"type"} control={control} label={"Item type"} options={typeOptions} value={ItemType.NONE} />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={3}>
+                        <FormControl fullWidth>
+                            <Select name={"rarity"} control={control} label={"Item rarity"} options={rarityOptions} value={ItemRarity.NONE} />
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} sm={3}>
+                        <Checkbox name={"attunement"} control={control} label={"Attunement"} />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button onClick={handleSubmit(submitFilter)} variant="contained">Filter</Button>
+                    </Grid>
+                </Grid>
+            </form>
         </Grid>
 
         <Grid item xs={12}>

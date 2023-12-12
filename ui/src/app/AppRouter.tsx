@@ -9,6 +9,7 @@ import ErrorPage from '../pages/ErrorPage';
 import Adventures from '../pages/Adventures';
 import Monsters from '../pages/Monsters';
 import Items from '@/pages/items/Items';
+import Item from '@/pages/items/Item';
 import NewItem from "@/pages/items/NewItem";
 
 const router = createBrowserRouter([
@@ -26,13 +27,17 @@ const router = createBrowserRouter([
       element: <Monsters />,
     },
     {
-      path: "/items",
-      element: <Items />
+      path: "/items/:id",
+      element: <Item />
     },
     {
       path: "/items/new",
       element: <NewItem />
-    }
+    },
+    {
+      path: "/items",
+      element: <Items />
+    },
   ]);
 
 
