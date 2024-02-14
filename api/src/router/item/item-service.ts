@@ -1,5 +1,5 @@
-import { connectDb } from "../../db";
-import { items } from "../../model/item";
+import { connectDb } from "@/db";
+import { items } from "@/model/item";
 
 type ItemModel = typeof items.$inferInsert;
 

@@ -1,6 +1,6 @@
 import express, {Request, Response } from "express";
 import * as dotenv from "dotenv";
-import AppRouter from "./router/router";
+import AppRouter from "@/router/router";
 
 dotenv.config();
 

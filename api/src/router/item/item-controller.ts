@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { v4 as uuid } from 'uuid';
 import { Router } from "express";
-import { items } from "../../model/item";
-import { getItems, addItem } from "./item-service";
+import { items } from "@/model/item";
+import { getItems, addItem } from "@/router/item/item-service";
 
 const ItemController = Router();
 
