@@ -1,13 +1,14 @@
-import express, {Request, Response} from "express";
+import express, {Request, Response } from "express";
 import * as dotenv from "dotenv";
-import { connectDb } from "./db";
+import ItemRouter from "./router/item";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const db = await connectDb();
+app.use(express.json());
+app.use("/items", ItemRouter);
 
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello world !");

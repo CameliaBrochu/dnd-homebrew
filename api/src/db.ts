@@ -1,3 +1,4 @@
+import { drizzle } from "drizzle-orm/node-postgres";
 import pg, { ClientConfig } from "pg";
 
 export const connectDb = async ( ) => {
@@ -11,5 +12,7 @@ export const connectDb = async ( ) => {
     const client = new pg.Client(config);
     await client.connect();
 
-    return client;
+    const db = drizzle(client);
+
+    return db;
 }
