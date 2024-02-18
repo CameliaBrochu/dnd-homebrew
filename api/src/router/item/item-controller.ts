@@ -48,7 +48,7 @@ ItemController.get("/:id", async (req: Request<ItemIdParam, {}, {}>, res: Respon
 })
 
 
-ItemController.put("/add", async (req: Request<{}, {}, NewItemModel>, res: Response) => {
+ItemController.post("/add", async (req: Request<{}, {}, NewItemModel>, res: Response) => {
 
     req.body.id = uuid();
 
