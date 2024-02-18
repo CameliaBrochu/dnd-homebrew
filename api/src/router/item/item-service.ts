@@ -3,7 +3,7 @@ import { items } from "@/model/item";
 import { UUID } from "crypto";
 import { eq } from "drizzle-orm";
 
-type ItemModel = typeof items.$inferInsert;
+type NewItemModel = typeof items.$inferInsert;
 
 export const getItems = async () => {
     const db = await connectDb();
@@ -17,7 +17,7 @@ export const getItem = async (id: UUID) =>{
     return db.select().from(items).where(eq(items.id, id));
 }
 
-export const addItem = async (newItem: ItemModel) =>{
+export const addItem = async (newItem: NewItemModel) =>{
     const db = await connectDb();
 
     await db.insert(items).values(newItem);

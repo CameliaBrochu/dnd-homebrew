@@ -4,10 +4,12 @@ import { Router } from "express";
 import { items } from "@/model/item";
 import { getItems, addItem, deleteItem, getItem } from "@/router/item/item-service";
 import { UUID } from "crypto";
+import { ApiResponse } from "@/types";
 
 const ItemController = Router();
 
-type ItemModel = typeof items.$inferInsert;
+type ItemModel = typeof items.$inferSelect;
+type NewItemModel = typeof items.$inferInsert;
 type ItemIdParam = {
     id: UUID
 }
@@ -19,22 +21,34 @@ type ItemIdParam = {
 })*/
 
 
-ItemController.get("/", async (req: Request<{}, {}, {}>, res: Response) => {
+ItemController.get("/", async (req: Request<{}, {}, {}>, res: Response<ApiResponse<ItemModel[]>>) => {
 
     const result = await getItems();
 
-    res.send(result);
+    const response: ApiResponse<ItemModel[]> = {
+        success: true,
+        error: "",
+        data: result
+    }
+
+    res.send(response);
 })
 
-ItemController.get("/:id", async (req: Request<ItemIdParam, {}, {}>, res: Response) => {
+ItemController.get("/:id", async (req: Request<ItemIdParam, {}, {}>, res: Response<ApiResponse<ItemModel>>) => {
 
     const result = await getItem(req.params.id);
 
-    res.send(result);
+    const response: ApiResponse<ItemModel> = {
+        success: true,
+        error: "",
+        data: result[0]
+    }
+
+    res.send(response);
 })
 
 
-ItemController.put("/add", async (req: Request<{}, {}, ItemModel>, res: Response) => {
+ItemController.put("/add", async (req: Request<{}, {}, NewItemModel>, res: Response) => {
 
     req.body.id = uuid();
 
