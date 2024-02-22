@@ -48,7 +48,7 @@ ItemController.get("/:id", async (req: Request<ItemIdParam, {}, {}>, res: Respon
 })
 
 
-ItemController.post("/add", async (req: Request<{}, {}, NewItemModel>, res: Response) => {
+ItemController.post("/", async (req: Request<{}, {}, NewItemModel>, res: Response) => {
 
     req.body.id = uuid();
 
@@ -58,7 +58,7 @@ ItemController.post("/add", async (req: Request<{}, {}, NewItemModel>, res: Resp
 })
 
 
-ItemController.delete("/delete/:id", async (req: Request<ItemIdParam, {}, {}>, res: Response) => {
+ItemController.delete("/:id", async (req: Request<ItemIdParam, {}, {}>, res: Response) => {
 
     await deleteItem(req.params.id);
 
